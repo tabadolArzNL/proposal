@@ -19,7 +19,36 @@
     تاریخ ساخته شدن اکانت تلگرام هر عضو جدید و زمان آپلود شدن عکس های وی بررسی شود و احتمال کلاهبردار بودن به ادمین ها ریپورت شود
   </li>
 </ul>
-  
-
-  
 </div>
+
+
+## Run the bot
+
+1. Clone the project:
+    ```bash
+    git clone https://github.com/tabadolArzNL/proposal.git
+    cd proposal
+    ```
+
+2. Install the requirements:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3. Add environments variables:
+
+    create a file call `.env`:
+    ```bash
+    touch .env
+    ```
+
+    and add this variables to it:
+    ```env
+    TOKEN=your-telegram-bot-token
+    ```
+
+4. run the app:
+
+    ```bash
+    python main.py
+    ```
