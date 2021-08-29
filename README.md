@@ -45,6 +45,7 @@
     And add this variables to it:
     ```env
     TOKEN=your-telegram-bot-token
+    BOT_USERNAME="yout_bot_user_name"
     ```
 
 4. Run the app:
