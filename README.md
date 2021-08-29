@@ -37,18 +37,41 @@
 
 3. Add environments variables:
 
-    create a file call `.env`:
+    Create a file call `.env`:
     ```bash
     touch .env
     ```
 
-    and add this variables to it:
+    And add this variables to it:
     ```env
     TOKEN=your-telegram-bot-token
     ```
 
-4. run the app:
+4. Run the app:
 
     ```bash
     python main.py
     ```
+
+### Run the project for development
+- To reload the project after changing the code, we can use `nodemon`
+     ```bash
+     npm install -g nodemon
+     ```
+
+- And now we can use the `nodemon`
+    ```bash
+    nodemon main.py
+    ```
+
+
+### The telegram library we use
+we will use `python-telegram-bot` for our telegram bot:
+- https://github.com/python-telegram-bot/python-telegram-bot
+
+you can see the documentation of the library here:
+- https://python-telegram-bot.readthedocs.io/en/stable/
+
+also some examples for `python-telegram-bot`:
+https://github.com/python-telegram-bot/python-telegram-bot/tree/master/examples
+
