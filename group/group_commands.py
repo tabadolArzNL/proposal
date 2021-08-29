@@ -20,24 +20,27 @@ def memeber_chat_inline_keyboard(update: Update, context: CallbackContext) -> No
     # Add like function
     # Add dislike function
     # Add user to database
-    chat = update.effective_chat
-    chech_for_number = re.search(r'\d+', update.message.text)
+    try:
+        chat = update.effective_chat
+        chech_for_number = re.search(r'\d+', update.message.text)
 
-    if chat.type not in [Chat.GROUP, Chat.SUPERGROUP] or not chech_for_number:
+        if chat.type not in [Chat.GROUP, Chat.SUPERGROUP] or not chech_for_number:
+            return
+
+        keyboard = [
+            [
+                InlineKeyboardButton("👍 44", callback_data='1'),
+                InlineKeyboardButton("👎 5", callback_data='2'),
+            ],
+            [InlineKeyboardButton(
+                "user Details", url=f'https://telegram.me/{os.getenv("BOT_USERNAME")}?start={update.message.from_user.id}')],
+        ]
+
+        reply_markup = InlineKeyboardMarkup(keyboard)
+
+        update.message.reply_text('Please choose:', reply_markup=reply_markup)
+    except:
         return
-
-    keyboard = [
-        [
-            InlineKeyboardButton("Like this user (👍 44)", callback_data='1'),
-            InlineKeyboardButton("Dislike this user (👎 5)", callback_data='2'),
-        ],
-        [InlineKeyboardButton(
-            "See this user Details", url=f'https://telegram.me/{os.getenv("BOT_USERNAME")}?start={update.message.from_user.id}')],
-    ]
-
-    reply_markup = InlineKeyboardMarkup(keyboard)
-
-    update.message.reply_text('Please choose:', reply_markup=reply_markup)
 
 
 # Welcaome message
