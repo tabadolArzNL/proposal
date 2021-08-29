@@ -1,5 +1,5 @@
 import os
-
+import re
 from helpers.status_change import extract_status_change
 from datetime import datetime
 import logging
@@ -21,7 +21,9 @@ def memeber_chat_inline_keyboard(update: Update, context: CallbackContext) -> No
     # Add dislike function
     # Add user to database
     chat = update.effective_chat
-    if chat.type not in [Chat.GROUP, Chat.SUPERGROUP]:
+    chech_for_number = re.search(r'\d+', update.message.text)
+
+    if chat.type not in [Chat.GROUP, Chat.SUPERGROUP] or not chech_for_number:
         return
 
     keyboard = [
