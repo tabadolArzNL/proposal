@@ -13,7 +13,20 @@ from telegram import (ParseMode, InlineKeyboardButton,
 logger = logging.getLogger(__name__)
 
 
+def validate_decotator(func):
+    def valid_groups(*args, **kwargs):
+        update = args[0]
+        chat = update.effective_chat
+        if chat.type not in [Chat.GROUP, Chat.SUPERGROUP]:
+            return
+        if not any([id == str(chat.id) for id in os.getenv('GROUP_IDS').split(",")]):
+            return
+        return func(*args, **kwargs)
+    return valid_groups
+
+
 # User text in group
+@validate_decotator
 def memeber_chat_inline_keyboard(update: Update, context: CallbackContext) -> None:
     """Handle the inline query."""
     # TODO:
@@ -21,12 +34,9 @@ def memeber_chat_inline_keyboard(update: Update, context: CallbackContext) -> No
     # Add dislike function
     # Add user to database
     try:
-        chat = update.effective_chat
         chech_for_number = re.search(r'\d+', update.message.text)
-
-        if chat.type not in [Chat.GROUP, Chat.SUPERGROUP] or not chech_for_number:
+        if not chech_for_number:
             return
-
         keyboard = [
             [
                 InlineKeyboardButton("👍 44", callback_data='1'),
@@ -44,6 +54,7 @@ def memeber_chat_inline_keyboard(update: Update, context: CallbackContext) -> No
 
 
 # Welcaome message
+@validate_decotator
 def greet_chat_members(update: Update, context: CallbackContext) -> None:
     """Greets new users in chats"""
     result = extract_status_change(update.chat_member)
@@ -56,14 +67,15 @@ def greet_chat_members(update: Update, context: CallbackContext) -> None:
 
     if not was_member and is_member:
         now = datetime.now()
-        added_by = "" if member_name == cause_name else f"\nInvited By: {cause_name}."
+        added_by = "" if member_name == cause_name else f"\nدعوت شده به گروه توسط: {cause_name}."
         user_name = update.chat_member.new_chat_member.user.username
         update.effective_chat.send_message(
-            f"Welcome {member_name}."
+            "\u200c"
+            f"کاربر {member_name} به گروه تبادل ارز هلند خوش آمدید."
             f"{added_by}"
-            f"\n{'user_name: ' + user_name if user_name else ''}"
-            f"\nJoin date: {now.strftime('%d/%m/%Y %H:%M')}"
-            f"\nPlease first read the roles: <a href='https://t.me/c/1331406275/1876'>click here</a>",
+            f"\n{'نام کاربری: ' + user_name if user_name else ''}"
+            f"\nتاریخ عضویت: {now.strftime('%d/%m/%Y %H:%M')}"
+            f"\n لطفا در اولین فرصت با <a href='https://t.me/c/1331406275/1876'>کلیک اینجا</a> قوانین گروه را با دقت مطالعه بفرمائید.",
             parse_mode=ParseMode.HTML,
         )
     # Leave the group message

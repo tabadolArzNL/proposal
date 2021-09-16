@@ -33,15 +33,14 @@ def main() -> None:
 
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
-
     # # # # # # # #
     # All handlers
     # # # # # # # #
     dispatcher.add_handler(pm_commands.start_handler)
     dispatcher.add_handler(ChatMemberHandler(
         group_commands.greet_chat_members, ChatMemberHandler.CHAT_MEMBER))
-    dispatcher.add_handler(MessageHandler(
-        Filters.text & ~Filters.command, group_commands.memeber_chat_inline_keyboard))
+    # dispatcher.add_handler(MessageHandler(
+    #     Filters.text & ~Filters.command, group_commands.memeber_chat_inline_keyboard))
 
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                         level=logging.INFO)

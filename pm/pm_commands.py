@@ -13,10 +13,10 @@ def start(update, context):
             # TODO: send the user deatils back
             text = "[Future] Will check database for that user and will send the deatils here"
         else:
-            text = "Private chat with bot text!"
+            text = "\u200cسلام خوش آمدید"
 
     elif chat.type in [Chat.GROUP, Chat.SUPERGROUP]:
-        text = "Type start on group"
+        text = "✅ online"
 
     context.bot.send_message(
         chat_id=update.effective_chat.id, text=text)
